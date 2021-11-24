@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flycodeland/Const/Constant.dart' show AppColor;
+import 'package:flycodeland/Const/Constant.dart' show AppColor, AppUrls;
 import 'package:flycodeland/Pages/LoginPage.dart';
 import 'package:flycodeland/Common/evenbus.dart';
+import 'package:flycodeland/Pages/my_message_page.dart';
+import 'package:flycodeland/Pages/profile_detail_page.dart';
+import 'package:flycodeland/Util/DataUtil.dart';
+import 'package:flycodeland/Util/Network.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -41,16 +47,51 @@ class _ProfilePageState extends State<ProfilePage> {
     _showUerInfo();
 
     evenBus.on<LoginEvent>().listen((event) {
-
+      _getUserInfo();
     });
 
     evenBus.on<LogOutEvent>().listen((event) {
+      _showUerInfo();
+    });
+  }
 
+  _getUserInfo() {
+    DataUtil.getAccessToken().then((value) {
+      if (value == null || value.length == 0) {
+        return;
+      }
+      Map<String, dynamic> params = Map<String, dynamic>();
+      params['access_token'] = value;
+      params['dataType'] = 'json';
+      print('accessToken: $value');
+
+      NetUtil.get(AppUrls.OPENAPI_USER, params).then((data) {
+        print('data:$data');
+        Map<String, dynamic> map = json.decode(data);
+        if (mounted) {
+          setState(() {
+            userAvator = map['avator'];
+            userName = map['name'];
+          });
+          DataUtil.saveUserInfo(map);
+        }
+      });
     });
   }
 
   _showUerInfo() {
-    //
+    DataUtil.getUserInfo().then((user) {
+      if (mounted) {
+        setState(() {
+          if (user != null) {
+            userAvator = user.avator;
+            userName = user.name;
+          } else {}
+          userAvator = '';
+          userName = '';
+        });
+      }
+    });
   }
 
   @override
@@ -72,20 +113,35 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: Icon(menuIcons[index]),
             title: Text(menuTitles[index]),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: (){
-
+            onTap: () {
+              DataUtil.isLogin().then((isLogin) {
+                // if (isLogin) {
+                  switch (index) {
+                    case 0:
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MyMessagePage()));
+                      break;
+                  }
+                // } else {
+                //   _login();
+                // }
+              });
             },
           );
         },
         separatorBuilder: (context, index) {
-          return Divider(height: 1.0,);
+          return Divider(
+            height: 1.0,
+          );
         },
         itemCount: menuTitles.length + 1);
   }
 
-  _login() {
-    final result = Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWebPage()));
-    if(result != null && result == 'refresh'){
+  _login() async {
+    final result = await Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => LoginWebPage()));
+    if (result != null && result == 'refresh') {
+      //Login successful
       evenBus.fire(LoginEvent());
     }
   }
@@ -99,20 +155,35 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             GestureDetector(
-              child: Container(
-                width: 60.0,
-                height: 60.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColor.APPBAR_COLOR, width: 2.0),
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/ic_avatar_default.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+              child: userAvator == ''
+                  ? Container(
+                      width: 60.0,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                            color: AppColor.APPBAR_COLOR, width: 2.0),
+                        image: DecorationImage(
+                          image:
+                              AssetImage('assets/images/ic_avatar_default.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : Image.asset(
+                      'assets/images/ic_avatar_default.png',
+                      width: 60.0,
+                      height: 60.0,
+                    ),
               onTap: () {
-                _login();
+                DataUtil.isLogin().then((isLogin) {
+                  if (isLogin) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ProfileDetailPage()));
+                  } else {
+                    _login();
+                  }
+                });
               },
             ),
             SizedBox(
@@ -127,6 +198,4 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-
-
 }
