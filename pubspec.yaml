@@ -38,6 +38,9 @@ dependencies:
   flutter_webview_plugin: ^0.4.0
   shared_preferences: ^2.0.9
   event_bus: ^2.0.0
+  scan: ^1.5.0
+  sensors_plus: ^1.2.1
+  shake: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +76,7 @@ flutter:
     - assets/images/ic_avatar_default.png
     #抽屉背景
     - assets/images/cover_img.jpg
+    - assets/images/shake.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

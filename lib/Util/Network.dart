@@ -13,7 +13,7 @@ class NetUtil{
       paramStr = paramStr.substring(0,paramStr.length - 1);
       url += paramStr;
     }
-
+    print('requst get url:$url');
     http.Response response = await http.get(Uri(host: url));
     return response.body;
   }

@@ -6,7 +6,7 @@ abstract class AppColor{
 }
 
 abstract class AppInfos {
-  static const String CLIENT_ID = '6i4Yu6IUqXnR64em0rsJ';//应用id
+  static const String client_id = '6i4Yu6IUqXnR64em0rsJ';//应用id
   static const String CLIENT_SECRET = 'Pb9t3prZqBYDeB9DjTvmCzGLu7EFJyt9';//应用密钥
   static const String REDIRECT_URI = 'https://www.dongnaoedu.com/';//回调地址
 }
@@ -23,5 +23,6 @@ abstract class AppUrls {
 
   static const String MY_INFORMATION = HOST + '/action/openapi/my_information';
   static const String MESSAGE_LIST = HOST + '/action/openapi/message_list';
+  static const String NEWS_LIST = HOST + '/action/openapi/news_list';
 
 }

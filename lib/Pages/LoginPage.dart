@@ -35,7 +35,7 @@ class _LoginWebPageState extends State<LoginWebPage> {
         //提取授权码code
         String code = url.split('?')[1].split('&')[0].split('=')[1];
         Map<String, dynamic> params = Map<String, dynamic>();
-        params['client_id'] = AppInfos.CLIENT_ID;
+        params['client_id'] = AppInfos.client_id;
         params['client_secret'] = AppInfos.CLIENT_SECRET;
         params['grant_type'] = 'authorization_code';
         params['redirect_uri'] = AppInfos.REDIRECT_URI;
@@ -79,7 +79,7 @@ class _LoginWebPageState extends State<LoginWebPage> {
 
     return WebviewScaffold(url: AppUrls.OAUTH2_AUTHORIZE +
         '?response_type=code&client_id=' +
-        AppInfos.CLIENT_ID +
+        AppInfos.client_id +
         '&redirect_uri=' +
         AppInfos.REDIRECT_URI,
       appBar: AppBar(
