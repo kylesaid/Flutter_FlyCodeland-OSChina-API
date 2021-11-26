@@ -25,7 +25,8 @@ class _FindScanPageState extends State<FindScanPage> {
         scanLineColor: Colors.green.shade400,
         onCapture: (data) {
           // do something
-          Navigator.pop(context,data);
+          print('Scan:$data');
+          Navigator.pop(context);
         },
       ),
     );

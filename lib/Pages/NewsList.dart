@@ -20,12 +20,22 @@ class _NewsListPageState extends State<NewsListPage> {
   bool isLogin = false;
   int curPage = 1;
   List newsList = [];
-
+  ScrollController _controller = ScrollController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _controller.addListener(() {
+      var maxScroll = _controller.position.maxScrollExtent;
+      var pixels = _controller.position.pixels;
+      if(maxScroll == pixels){
+        curPage++;
+        getNewsList(true);
+      }
+    });
+
+
     DataUtil.isLogin().then((isLogin) {
       if (!mounted) return;
       setState(() {
