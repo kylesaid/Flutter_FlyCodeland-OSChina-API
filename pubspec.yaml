@@ -1,6 +1,5 @@
-name: flycodeland
-description: A new Flutter application.
-
+name: hello_oschina
+description: "Flutter project by OSChina."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -12,13 +11,15 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # build by specifying --build-name and --build-number, respectively.
 # In Android, build-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=3.2.3 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -33,16 +34,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  http: ^0.13.4
-  flutter_webview_plugin: ^0.4.0
-  shared_preferences: ^2.0.9
-  event_bus: ^2.0.0
-  scan: ^1.5.0
-  sensors_plus: ^1.2.1
-  shake: ^2.0.0
-  vibration: ^1.7.3
-  image_picker: ^0.8.4+4
+  cupertino_icons: ^1.0.6
 
 dev_dependencies:
   flutter_test:
@@ -53,35 +45,46 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^3.0.1
+  flutter_swiper_plus: ^2.0.4
+  dio: ^5.4.0
+  flutter_easyloading: ^3.0.5
+  common_utils: ^2.1.0
+  webview_flutter: ^4.4.2
+  shared_preferences: ^2.2.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
+# The following section is specific to Flutter packages.
 flutter:
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
   assets:
-    #导航栏图标
-    - assets/images/ic_nav_news_normal.png
-    - assets/images/ic_nav_news_actived.png
-    - assets/images/ic_nav_tweet_normal.png
-    - assets/images/ic_nav_tweet_actived.png
-    - assets/images/ic_nav_discover_normal.png
-    - assets/images/ic_nav_discover_actived.png
-    - assets/images/ic_nav_my_normal.png
-    - assets/images/ic_nav_my_pressed.png
-    - assets/images/ic_avatar_default.png
-    #抽屉背景
-    - assets/images/cover_img.jpg
-    - assets/images/shake.png
+     - assets/images/tabBar/ic_home_add.png
+     - assets/images/tabBar/ic_home_discover_night_normal.png
+     - assets/images/tabBar/ic_home_discover_normal.png
+     - assets/images/tabBar/ic_home_discover_select.png
+     - assets/images/tabBar/ic_home_synthesize_night_normal.png
+     - assets/images/tabBar/ic_home_synthesize_normal.png
+     - assets/images/tabBar/ic_home_synthesize_select.png
+     - assets/images/tabBar/ic_home_tweet_night_normal.png
+     - assets/images/tabBar/ic_home_tweet_normal.png
+     - assets/images/tabBar/ic_home_tweet_select.png
+     - assets/images/tabBar/ic_home_user_night_normal.png
+     - assets/images/tabBar/ic_home_user_normal.png
+     - assets/images/tabBar/ic_home_user_select.png
+     - assets/images/ic_search.png
+     - assets/images/btn_back_dark_normal.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
+  # https://flutter.dev/assets-and-images/#resolution-aware
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
